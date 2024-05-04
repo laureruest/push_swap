@@ -6,7 +6,7 @@
 #    By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/04 09:12:32 by lruiz-es          #+#    #+#              #
-#    Updated: 2024/05/04 10:16:24 by lruiz-es         ###   ########.fr        #
+#    Updated: 2024/05/04 12:26:32 by lruiz-es         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,10 +38,18 @@ LIBHEADERS = $(LIBDIRS:%=%.h)
 LIBFILES = $(LIBHEADERS:%.h=%.a)
 #MACRO VARIABLES FOR COMPILERS, FLAGS, ETC*******************************
 CC = cc
-CCFLAGS = -Wall -Werror -Wextra
+CCFLAGS = -MMD -Wall -Werror -Wextra
 .PHONY: all clean fclean re
 all : $(NAME)
 	
+
+$(NAME): $(OBJ)
+	@for dir in $(LIBDIRS); do ; cd dir; make; cd ..; done
+	$(CC) $(CC_DEBUG_FLAGS) $(CCFLAGS) -o $@ $(^F) $(LIBFILES)
+	echo $(NAME)
+
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
+	$(CC) $(CC_DEBUG_FLAGS) $(CCFLAGS) -c $(?F) -o $<
 
 clean:
 	@rm $(OBJ)
