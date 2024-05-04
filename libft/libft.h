@@ -6,7 +6,7 @@
 /*   By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 14:15:38 by lruiz-es          #+#    #+#             */
-/*   Updated: 2024/03/14 20:21:24 by lruiz-es         ###   ########.fr       */
+/*   Updated: 2024/05/04 09:00:40 by lruiz-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -940,23 +940,23 @@ Descripción:    Reserva (utilizando malloc(3)),  genera una string que represen
 
 ******************************************************************************* 
                                                                                 
-FT_ULLITOHEX             LIBFT C FUNCTIONS LIBRARY                 FT_ULLITOHEX         
+FT_ULLITOHEX             LIBFT C FUNCTIONS LIBRARY                 FT_ULLITOHEX
 
 
 Library: Libft C Library (libft.h, libft.a)                                     
                                                                                 
 Usage: include "libft.h"                                                        
                                                                                 
-Nombre de función: ft_ullitohex                                                      
+Nombre de función: ft_ullitohex
                                                                                  
 Prototipo:  char *ft_ullitohex(unsigned long long int n);                    
                                                    
                                                       
                                                                                
-Parámetros:             n: el entero sin signo a convertir                              
+Parámetros:             n: el entero sin signo a convertir 
                                                                                  
-Valor devuelto: La string que represente el numero en base 16.                           
-	               NULL si falla la reserva de memoria.                            
+Valor devuelto: La string que represente el numero en base 16. 
+	               NULL si falla la reserva de memoria.  
                                                                         
 Funciones autorizadas: malloc                                                   
                                                                                
