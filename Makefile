@@ -6,7 +6,7 @@
 #    By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/04 09:12:32 by lruiz-es          #+#    #+#              #
-#    Updated: 2024/05/04 12:26:32 by lruiz-es         ###   ########.fr        #
+#    Updated: 2024/05/05 08:11:46 by lruiz-es         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,10 +30,11 @@ LIBDIRS = libft ft_printf
 #********************DONT EDIT FROM HERE**********************************
 #MAKE MACRO VARIABLES FOR MAKEFILE WORKING
 #DIRS STRUCTURE FOR SOURCES AND OBJECTS, AND LIBRARY NAMES
-SRCDIR = .
-OBJDIR = .
+SRCDIR =.
+OBJDIR =.
 OBJFILES = $(SRCFILES:%.c=%.o)
 OBJ = $(addprefix $(OBJDIR)/, $(OBJFILES))
+SRC = $(addprefix $(SRCDIR)/, $(SRCFILES))
 LIBHEADERS = $(LIBDIRS:%=%.h)
 LIBFILES = $(LIBHEADERS:%.h=%.a)
 #MACRO VARIABLES FOR COMPILERS, FLAGS, ETC*******************************
@@ -43,13 +44,13 @@ CCFLAGS = -MMD -Wall -Werror -Wextra
 all : $(NAME)
 	
 
-$(NAME): $(OBJ)
+$(NAME) : $(OBJ)
 	@for dir in $(LIBDIRS); do ; cd dir; make; cd ..; done
 	$(CC) $(CC_DEBUG_FLAGS) $(CCFLAGS) -o $@ $(^F) $(LIBFILES)
 	echo $(NAME)
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c
-	$(CC) $(CC_DEBUG_FLAGS) $(CCFLAGS) -c $(?F) -o $<
+$(OBJ): $(SRC)
+	$(CC) $(CC_DEBUG_FLAGS) $(CCFLAGS) -c $(?F)
 
 clean:
 	@rm $(OBJ)

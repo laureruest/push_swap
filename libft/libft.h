@@ -6,7 +6,7 @@
 /*   By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 14:15:38 by lruiz-es          #+#    #+#             */
-/*   Updated: 2024/05/04 09:00:40 by lruiz-es         ###   ########.fr       */
+/*   Updated: 2024/05/05 10:17:33 by lruiz-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	*ft_memchr(const void *s, int c, size_t n);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 int		ft_atoi(const char *str);
+int		ft_fatoi(const char *str, int *overflow);
 void	*ft_calloc(size_t count, size_t size);
 char	*ft_strdup(const char *s1);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
@@ -701,9 +702,10 @@ SEE ALSO
 ********************************************************************************
 
  FT_ATOI                  LIBFT Library Functions Manual                 FT_ATOI
-
+ FT_FATOI																FT_FATOI
 NAME
      ft_atoi   -- convert ASCII string to integer
+	 	ft_fatoi  -- do sometihing, but returning flag when overflow
 
 LIBRARY
      Libft C Library (libft.h, libft.a)
@@ -712,7 +714,13 @@ SYNOPSIS
      #include "libft.h"
 
      int
-     atoi(const char *str);
+     ft_atoi(const char *str);
+
+	 
+	int
+	ft_fatoi(const char *str, int *overflow);
+		
+
 
 DESCRIPTION
      The ft_atoi() function converts the initial portion of the string pointed
@@ -720,9 +728,15 @@ DESCRIPTION
 	The string may begin with an arbitrary amount of white spaces (chr$(32))
 	,followed by a single optional `+' or `-' sign, and later number digits
 
+	The ft_fatoi() function works in the same behaviour, but if detects than
+	value to convert is out of limits of integers, set the int variable passed
+	by reference to -1
 
+	
 ERRORS
-     The function atoi() need not affect the value of errno on an error.
+
+     The function ft_atoi() and ft_fatoi() need not affect the value of errno
+		 on an error.
 
 ********************************************************************************
 FT_CALLOC                LIBFT Library Functions Manual                FT_CALLOC

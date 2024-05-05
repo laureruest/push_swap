@@ -6,7 +6,7 @@
 #    By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/10 17:37:51 by lruiz-es          #+#    #+#              #
-#    Updated: 2024/03/14 21:13:37 by lruiz-es         ###   ########.fr        #
+#    Updated: 2024/05/05 10:22:25 by lruiz-es         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ OBJ =	ft_isalpha.o ft_isdigit.o ft_isalnum.o ft_isascii.o ft_isprint.o\
 		ft_strrchr.o ft_strncmp.o ft_memchr.o ft_memcmp.o ft_strnstr.o\
 	   	ft_atoi.o ft_calloc.o ft_strdup.o ft_substr.o ft_strjoin.o ft_strtrim.o\
 		ft_split.o ft_itoa.o ft_ullitohex.o ft_strmapi.o ft_striteri.o ft_put_fd.o\
-		ft_putnbr_fd.o get_next_line.o get_next_line_utils.o
+		ft_putnbr_fd.o get_next_line.o get_next_line_utils.o ft_fatoi.o
 
 OBJ_COMP_PATH = $(addprefix $(OBJ_DIR), $(OBJ))
 SRC =	ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c\
@@ -30,7 +30,7 @@ SRC =	ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c\
 		ft_strrchr.c ft_strncmp.c ft_memchr.c ft_memcmp.c ft_strnstr.c\
 		ft_atoi.c ft_calloc.c ft_strdup.c ft_substr.c ft_strjoin.c ft_strtrim.c\
 		ft_split.c ft_itoa.c ft_ullitohex.c ft_strmapi.c ft_striteri.c ft_put_fd.c\
-		ft_putnbr_fd.c get_next_line.c get_next_line_utils.c
+		ft_putnbr_fd.c get_next_line.c get_next_line_utils.c ft_fatoi.c
 
 ST_LIB_PKGER = ar
 PKGERFLAGS = -r
@@ -81,6 +81,9 @@ obj/ft_strnstr.o : obj/ft_strlen.o libft.h ft_strnstr.c
 
 obj/ft_atoi.o : obj/ft_isdigit.o obj/ft_strlen.o libft.h ft_atoi.c
 	$(CC) $(CFLAGS) -o $@ ft_atoi.c
+
+obj/ft_fatoi.o : obj/ft_isdigit.o obj/ft_strlen.o libft.h ft_fatoi.c
+	$(CC) $(CFLAGS) -o $@ ft_fatoi.c
 
 obj/ft_strdup.o : obj/ft_strlen.o libft.h ft_strdup.c
 	$(CC) $(CFLAGS) -o $@ ft_strdup.c
