@@ -6,7 +6,7 @@
 #    By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/09 07:59:23 by lruiz-es          #+#    #+#              #
-#    Updated: 2024/03/30 13:06:13 by lruiz-es         ###   ########.fr        #
+#    Updated: 2024/05/11 10:41:03 by lruiz-es         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ all : $(NAME)
 
 $(NAME) : $(OBJ)
 	$(LINKER) $(LINKER_FLAGS) $@ $?
+	cp $@ ft_printf.a
 
 $(HEADER_NAME) : 
 	@echo "Te has borrado el archivo ft_printf.h, recuperatelo";
