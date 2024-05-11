@@ -6,7 +6,7 @@
 /*   By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 08:12:34 by lruiz-es          #+#    #+#             */
-/*   Updated: 2024/05/11 10:49:11 by lruiz-es         ###   ########.fr       */
+/*   Updated: 2024/05/11 11:46:43 by lruiz-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ int	fillst(char **param, t_list *lst, int nparam)
 	nwnode = malloc(1);
 	if (!nwnode)
 		return (-1);
-	nwnode->next = lst;
+	nwnode.next = lst;
 	num = ft_fatoi(param[nparam], &ovflw);
 	if (ovflw)
 		return (-1);
-	nwnode->value = num;
+	nwnode.value = num;
 	lst = nwnode;
 	return (0);
 }
