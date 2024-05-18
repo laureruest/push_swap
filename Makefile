@@ -6,7 +6,7 @@
 #    By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/04 09:12:32 by lruiz-es          #+#    #+#              #
-#    Updated: 2024/05/11 12:54:31 by lruiz-es         ###   ########.fr        #
+#    Updated: 2024/05/18 12:33:39 by lruiz-es         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,43 +33,54 @@ CC_DEBUG_FLAGS = -g -fsanitize=address
 SRCDIR =.
 OBJDIR =.
 DEPDIR =.
-INCLUDEDIR = ./include
-LIBDIR = ./lib
+INCLUDEDIR = include
+LIBDIR = lib
 OBJFILES = $(SRCFILES:%.c=%.o)
 OBJ = $(addprefix $(OBJDIR)/, $(OBJFILES))
 SRC = $(addprefix $(SRCDIR)/, $(SRCFILES))
 DEP = $(SRC:%.c=%.d)
-LIBHEADERS = $(LIBDIRS:%=%.h)
-LIBFILES = $(addprefix $(LIBDIR)/, $(LIBHEADERS:%.h=%.a))
+DEPS = $(addprefix $(DEPDIR)/, $(DEP))
+LIBHEADERS = $(addprefix $(INCLUDEDIR)/, $(LIBDIRS:%=%.h))
+LIBFILES = $(addprefix $(LIBDIR)/, $(LIBDIRS:%=%.a))
 
 #MACRO VARIABLES FOR COMPILERS, FLAGS, ETC*******************************
 CC = cc
-CCFLAGS = -MMD -I $(INCLUDEDIR) -Wall -Werror -Wextra
+CCFLAGS = -MMD -I $(INCLUDEDIR) -L $(LIBDIR) -Wall -Werror -Wextra
 .PHONY: all clean fclean re
 all : $(NAME)
 	
 
-$(NAME) : $(OBJ)
+$(NAME) : $(OBJ) $(LIBHEADERS) $(LIBFILES)
+	$(CC) $(CC_DEBUG_FLAGS) $(CCFLAGS) -o $@ $(OBJ) $(LIBFILES) 
+
+$(LIBHEADERS) $(LIBFILES) : |$(INCLUDEDIR) $(LIBDIR)
 	for DIR in $(LIBDIRS); do cd $${DIR}; make; cd ..; cp $${DIR}/*.h $(INCLUDEDIR); cp $${DIR}/*.a $(LIBDIR); done;
-	$(CC) $(CC_DEBUG_FLAGS) $(CCFLAGS) -o $@ $(^F) $(LIBFILES)
 
-$(DEPDIR)/%.d : $(SRCDIR)/%.c
-	$(CC)  -MMD -I $(INCLUDEDIR) $?
+$(INCLUDEDIR) : 
+	@mkdir $(INCLUDEDIR)
 
-clean:
+$(LIBDIR) : 
+	@mkdir $(LIBDIR)
+
+$(DEP) $(OBJ) : $(SRC) | $(LIBHEADERS) $(LIBFILES)
+	$(CC) $(CC_DEBUG_FLAGS) -MMD -I $(INCLUDEDIR) -c $?
+
+clean :
 	@rm -f $(OBJ)
 	@rm -f $(LIBHEADERS)
 	@rm -f $(LIBFILES)
-	@rm -f $(LIBDIR)/*
-	@rm -f $(INCLUDEDIR)/*
+	@rm -f $(DEPS)
 
-fclean: clean
+fclean : clean
 	@rm -f *.d
 	@for dir in $(LIBDIRS); do cd $${dir}; make fclean; cd ..; done
+	@rm -f $(NAME)
+	@rm -rf $(INCLUDEDIR)
+	@rm -rf $(LIBDIR)
 
 re: fclean all
 	
 
-include $(SRCFILES:%.c=%.d)
+include $(DEPS)
 
 #****************************MAKEFILE END******************************
