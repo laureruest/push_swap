@@ -6,7 +6,7 @@
 /*   By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 08:12:34 by lruiz-es          #+#    #+#             */
-/*   Updated: 2024/05/19 11:05:22 by lruiz-es         ###   ########.fr       */
+/*   Updated: 2024/05/19 15:26:36 by lruiz-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,28 @@ int	errorprn(void)
 	return (-1);
 }
 
-t_list	*fillst(char **param, t_list *lst, int nparam, int *error)
+void	fillst(t_list *a, char **param, int counter, int nparam, int *error)
 {
-	t_list		*nwnode;
-	long int	num;
+	t_list	*nwnode;
+	int		num;
 
-	nwnode = NULL;
-	if (nparam == 1)
-		return (nwnode);
-	lst = fillst(param, lst, --nparam, error);
-	num = ft_fatoi(param[nparam], error);
-	if (*error)
-		return (nwnode);
-	nwnode = malloc(sizeof(t_list));
-	if (!nwnode)
+	num = ft_fatoi(param[counter - 1], error);
+	if (!error)
 	{
-		*error = -1;
-		return (nwnode);
+		nwnode = malloc(sizeof(t_list));
+		if (nwnode)
+		{
+			if (counter == nparam)
+			{
+				a->next = NULL;
+				return;
+			}
+			a->value = num;
+			a->next = nwnode;
+			fillst(nwnode, param, ++counter, nparam, error);
+			return;
+		}
 	}
-	nwnode->next = lst;
-	nwnode->value = num;
-	return (nwnode);
 }
 
 void	freestack(t_list *ptr)
@@ -53,37 +54,40 @@ void	freestack(t_list *ptr)
 
 void	prnresult(t_list *lst)
 {
+	int	num;
+
 	if (lst)
 	{
 		ft_printf("%s", "Value: ");
-		ft_printf("%i", lst->value);
+		ft_printf("%i \n", lst->value);
 		if (lst->next)
 			prnresult(lst->next);
 	}
 }
 
-int	main(int nparam, char **param)
+int	main(int nparam, char *param[])
 {
-	int		*error;
+	int		error;
+	int		counter;
 	t_list	*a;
 
+//	ft_printf("Numero parametros: %d", nparam);
+//	ft_printf("%c", '\n');
 	if (nparam == 1)
 		return (0);
-	error = malloc(sizeof(int));
-	if (error)
+	a = malloc(sizeof(t_list));
+	if (a)
 	{
-		*error = 0;
-		a = NULL;
-		a = fillst(param, a, nparam, error);
-		if (*error)
-		{
-			freestack(a);
-			return (errorprn());
-		}
+		counter = 2;
+		fillst(a, param, counter, nparam, &error);
+		if (error)
+			{
+				freestack(a);
+				return (errorprn());
+			}
 		prnresult(a);
 		freestack(a);
-		free(error);
 		return (0);
 	}
-	return (-1);
+	return (errorprn());
 }
