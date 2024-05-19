@@ -14,7 +14,7 @@ NAME = push_swap
 
 # SOURCE FILES
 # ******INSERT HERE IDENTIFICATION FOR SOURCE FILES***********************
-SRCFILES = push_swap.c
+SRCFILES = push_swap.c doit.c
 #
 #
 #*******INSERT HERE INNER LIBRARY DIRECTORIES TO COMPILE******************
@@ -77,6 +77,7 @@ fclean : clean
 	@rm -f $(NAME)
 	@rm -rf $(INCLUDEDIR)
 	@rm -rf $(LIBDIR)
+	@rm -rf *.gch
 
 re: fclean
 	@make all

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   t_list.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,16 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-
-# include "libft.h"
-# include "ft_printf.h"
-# include <stdlib.h>
+#ifndef T_LIST_H
 
 typedef struct s_list
 {
 	int				value;
 	struct s_list	*next;
 }	t_list;
-# define PUSH_SWAP_H
+# define T_LIST_H
 #endif

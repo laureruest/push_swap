@@ -10,39 +10,45 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
-
-int	errorprn(void)
+#include "t_list.h"
+#include "doit.h"
+#include "libft.h"
+#include "ft_printf.h"
+#include <stdlib.h>
+static int	errorprn(void)
 {
 	ft_putendl_fd("Error", 2);
 	return (-1);
 }
 
-void	fillst(t_list *a, char **param, int counter, int nparam, int *error)
+static void	fillst(t_list *a, char **param, int counter, int nparam, int *error)
 {
 	t_list	*nwnode;
 	int		num;
 
 	num = ft_fatoi(param[counter - 1], error);
-	if (!error)
+	if (!*error)
 	{
-		nwnode = malloc(sizeof(t_list));
-		if (nwnode)
+		a->value = num;
+		if (counter == nparam)
+			a->next = NULL;
+		else
 		{
-			if (counter == nparam)
+			nwnode = malloc(sizeof(t_list));
+			if (nwnode)
 			{
-				a->next = NULL;
-				return;
+				a->next = nwnode;
+				fillst(nwnode, param, ++counter, nparam, error);
 			}
-			a->value = num;
-			a->next = nwnode;
-			fillst(nwnode, param, ++counter, nparam, error);
-			return;
+			else
+				a->next = nwnode;
 		}
 	}
+	else
+		a->next = NULL;
 }
 
-void	freestack(t_list *ptr)
+static void	freestack(t_list *ptr)
 {
 	if (ptr)
 	{
@@ -52,42 +58,39 @@ void	freestack(t_list *ptr)
 	}
 }
 
-void	prnresult(t_list *lst)
+static void	prnresult(t_list *a, t_list *b, int *error)
 {
-	int	num;
-
-	if (lst)
-	{
-		ft_printf("%s", "Value: ");
-		ft_printf("%i \n", lst->value);
-		if (lst->next)
-			prnresult(lst->next);
-	}
+	ft_printf("%s", doit(a, b, error));
 }
 
 int	main(int nparam, char *param[])
 {
 	int		error;
 	int		counter;
-	t_list	*a;
+	t_list		*a;
+	t_list		*b;
 
-//	ft_printf("Numero parametros: %d", nparam);
-//	ft_printf("%c", '\n');
 	if (nparam == 1)
 		return (0);
+	error = 0;
 	a = malloc(sizeof(t_list));
-	if (a)
+	b = malloc(sizeof(t_list));
+	if ((a) && (b))
 	{
+		b->next = NULL;
 		counter = 2;
 		fillst(a, param, counter, nparam, &error);
 		if (error)
 			{
 				freestack(a);
+				freestack(b);
 				return (errorprn());
 			}
-		prnresult(a);
+		prnresult(a, b, &error);
 		freestack(a);
-		return (0);
+		freestack(b);
+		if (!error)
+			return (0);
 	}
 	return (errorprn());
 }
