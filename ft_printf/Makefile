@@ -6,7 +6,7 @@
 #    By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/09 07:59:23 by lruiz-es          #+#    #+#              #
-#    Updated: 2024/05/11 10:41:03 by lruiz-es         ###   ########.fr        #
+#    Updated: 2024/05/19 09:13:30 by lruiz-es         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,8 +56,8 @@ fclean : clean
 	@find . -name "*.a" -delete
 	@rm -rf obj
 
-re : fclean all
-	
+re : fclean
+	@make all
 
 obj/ft_printf.o : src/ft_printf.c obj/lr_prints.o $(HEADER_NAME)
 	$(CC) $(CC_FLAGS) $(CC_DEBUG_FLAGS) -o obj/ft_printf.o src/ft_printf.c

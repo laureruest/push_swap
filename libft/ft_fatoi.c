@@ -6,7 +6,7 @@
 /*   By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:22:50 by lruiz-es          #+#    #+#             */
-/*   Updated: 2024/05/05 10:31:00 by lruiz-es         ###   ########.fr       */
+/*   Updated: 2024/05/19 08:23:06 by lruiz-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,10 @@ int	ft_fatoi(const char *str, int *overflow)
 	left_str_ptr = (char *)(str);
 	cur = shift_to_last((char *)(str));
 	a = 0;
+	*overflow = -1;
 	if (cur)
 	{
+		*overflow = 0;
 		weighpot = 1;
 		while (cur >= left_str_ptr)
 		{

@@ -6,7 +6,7 @@
 /*   By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 14:15:38 by lruiz-es          #+#    #+#             */
-/*   Updated: 2024/05/05 10:17:33 by lruiz-es         ###   ########.fr       */
+/*   Updated: 2024/05/19 08:20:15 by lruiz-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -705,7 +705,8 @@ SEE ALSO
  FT_FATOI																FT_FATOI
 NAME
      ft_atoi   -- convert ASCII string to integer
-	 	ft_fatoi  -- do sometihing, but returning flag when overflow
+	 	ft_fatoi  -- do sometihing, but returning flag when overflow or is not
+					integer
 
 LIBRARY
      Libft C Library (libft.h, libft.a)

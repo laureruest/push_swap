@@ -6,7 +6,7 @@
 #    By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/10 17:37:51 by lruiz-es          #+#    #+#              #
-#    Updated: 2024/05/05 10:22:25 by lruiz-es         ###   ########.fr        #
+#    Updated: 2024/05/19 09:06:15 by lruiz-es         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,8 +61,8 @@ clean:
 fclean: clean
 	@rm -f $(LIBRARY_NAME)
 
-re: fclean all
-	
+re: fclean
+	@make all
 
 obj/ft_isalnum.o : obj/ft_isalpha.o obj/ft_isdigit.o ft_isalnum.c libft.h
 	$(CC) $(CFLAGS) -o $@ ft_isalnum.c

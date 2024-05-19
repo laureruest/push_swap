@@ -6,7 +6,7 @@
 #    By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/04 09:12:32 by lruiz-es          #+#    #+#              #
-#    Updated: 2024/05/18 12:33:39 by lruiz-es         ###   ########.fr        #
+#    Updated: 2024/05/19 09:04:20 by lruiz-es         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,15 +33,15 @@ CC_DEBUG_FLAGS = -g -fsanitize=address
 SRCDIR =.
 OBJDIR =.
 DEPDIR =.
-INCLUDEDIR = include
-LIBDIR = lib
+INCLUDEDIR = include/
+LIBDIR = lib/
 OBJFILES = $(SRCFILES:%.c=%.o)
 OBJ = $(addprefix $(OBJDIR)/, $(OBJFILES))
 SRC = $(addprefix $(SRCDIR)/, $(SRCFILES))
 DEP = $(SRC:%.c=%.d)
 DEPS = $(addprefix $(DEPDIR)/, $(DEP))
-LIBHEADERS = $(addprefix $(INCLUDEDIR)/, $(LIBDIRS:%=%.h))
-LIBFILES = $(addprefix $(LIBDIR)/, $(LIBDIRS:%=%.a))
+LIBHEADERS = $(addprefix $(INCLUDEDIR), $(LIBDIRS:%=%.h))
+LIBFILES = $(addprefix $(LIBDIR), $(LIBDIRS:%=%.a))
 
 #MACRO VARIABLES FOR COMPILERS, FLAGS, ETC*******************************
 CC = cc
@@ -62,7 +62,7 @@ $(INCLUDEDIR) :
 $(LIBDIR) : 
 	@mkdir $(LIBDIR)
 
-$(DEP) $(OBJ) : $(SRC) | $(LIBHEADERS) $(LIBFILES)
+$(DEPS) $(OBJ) : $(SRC) $(LIBHEADERS) 
 	$(CC) $(CC_DEBUG_FLAGS) -MMD -I $(INCLUDEDIR) -c $?
 
 clean :
@@ -73,12 +73,14 @@ clean :
 
 fclean : clean
 	@rm -f *.d
-	@for dir in $(LIBDIRS); do cd $${dir}; make fclean; cd ..; done
+	@for DIR in $(LIBDIRS); do cd $${DIR}; make fclean; cd ..; done
 	@rm -f $(NAME)
 	@rm -rf $(INCLUDEDIR)
 	@rm -rf $(LIBDIR)
 
-re: fclean all
+re: fclean
+	@make all
+
 	
 
 include $(DEPS)
