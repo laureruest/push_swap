@@ -60,7 +60,14 @@ static void	freestack(t_list *ptr)
 
 static void	prnresult(t_list *a, t_list *b, int *error)
 {
-	ft_printf("%s", doit(a, b, error));
+	char	*cadena;
+	
+	cadena = doit(a, b, error);
+	if (cadena)
+	{
+		ft_printf("%s", cadena);
+		free(cadena);
+	}
 }
 
 int	main(int nparam, char *param[])
