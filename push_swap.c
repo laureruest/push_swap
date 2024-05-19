@@ -6,7 +6,7 @@
 /*   By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 08:12:34 by lruiz-es          #+#    #+#             */
-/*   Updated: 2024/05/19 08:22:08 by lruiz-es         ###   ########.fr       */
+/*   Updated: 2024/05/19 11:05:22 by lruiz-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,30 +18,27 @@ int	errorprn(void)
 	return (-1);
 }
 
-int	fillst(char **param, t_list *lst, int nparam)
+t_list	*fillst(char **param, t_list *lst, int nparam, int *error)
 {
 	t_list		*nwnode;
-	int			error;
-	int			ovflw;
 	long int	num;
 
-	error = 0;
-	ovflw = 0;
+	nwnode = NULL;
 	if (nparam == 1)
-		return (0);
-	error = fillst(param, lst, --nparam);
-	if (error)
-		return (error);
+		return (nwnode);
+	lst = fillst(param, lst, --nparam, error);
+	num = ft_fatoi(param[nparam], error);
+	if (*error)
+		return (nwnode);
 	nwnode = malloc(sizeof(t_list));
 	if (!nwnode)
-		return (-1);
+	{
+		*error = -1;
+		return (nwnode);
+	}
 	nwnode->next = lst;
-	num = ft_fatoi(param[nparam], &ovflw);
-	if (ovflw)
-		return (-1);
 	nwnode->value = num;
-	lst = nwnode;
-	return (0);
+	return (nwnode);
 }
 
 void	freestack(t_list *ptr)
@@ -67,20 +64,26 @@ void	prnresult(t_list *lst)
 
 int	main(int nparam, char **param)
 {
-	int		error;
+	int		*error;
 	t_list	*a;
 
-	error = 0;
-	a = NULL;
 	if (nparam == 1)
 		return (0);
-	error = fillst(param, a, nparam);
+	error = malloc(sizeof(int));
 	if (error)
 	{
+		*error = 0;
+		a = NULL;
+		a = fillst(param, a, nparam, error);
+		if (*error)
+		{
+			freestack(a);
+			return (errorprn());
+		}
+		prnresult(a);
 		freestack(a);
-		return (errorprn());
+		free(error);
+		return (0);
 	}
-	prnresult(a);
-	freestack(a);
-	return (0);
+	return (-1);
 }

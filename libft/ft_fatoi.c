@@ -6,7 +6,7 @@
 /*   By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:22:50 by lruiz-es          #+#    #+#             */
-/*   Updated: 2024/05/19 08:23:06 by lruiz-es         ###   ########.fr       */
+/*   Updated: 2024/05/19 10:54:56 by lruiz-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,25 +111,23 @@ int	ft_fatoi(const char *str, int *overflow)
 	char			*left_str_ptr;
 
 	left_str_ptr = (char *)(str);
-	cur = shift_to_last((char *)(str));
-	a = 0;
 	*overflow = -1;
-	if (cur)
+	cur = shift_to_last((char *)(str));
+	if (!cur)
+		return (0);
+	a = 0;
+	*overflow = 0;
+	weighpot = 1;
+	while (cur-- >= left_str_ptr)
 	{
-		*overflow = 0;
-		weighpot = 1;
-		while (cur >= left_str_ptr)
+		if ((a >= minvalue()) && (a <= maxvalue()) && (ft_isdigit(*cur)))
 		{
-			if ((a >= minvalue()) && (a <= maxvalue()) && (ft_isdigit(*cur)))
-			{
-				a += (((long int)(*cur - 48)) * weighpot);
-				weighpot *= 10;
-			}
-			if (*cur == '-')
-				return (result_oflw_sg(a, left_str_ptr, cur, overflow));
-			cur--;
+			a += (((long int)(*cur - 48)) * weighpot);
+			weighpot *= 10;
 		}
-		cur++;
+		if (*cur == '-')
+			return (result_oflw_sg(a, left_str_ptr, cur, overflow));
 	}
+	cur++;
 	return (result_oflw_sg(a, left_str_ptr, cur, overflow));
 }
