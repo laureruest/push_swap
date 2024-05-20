@@ -6,7 +6,7 @@
 #    By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/04 09:12:32 by lruiz-es          #+#    #+#              #
-#    Updated: 2024/05/19 12:55:39 by lruiz-es         ###   ########.fr        #
+#    Updated: 2024/05/20 10:48:59 by lruiz-es         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ LIBDIRS = libft ft_printf
 #********************CONFIGURATION OF THIS MAKEFILE***********************
 #DEBUGGIN FLAGS
 #UNCOMMENT NEXT LINE FOR DEBUGGIN
-CC_DEBUG_FLAGS = -g -fsanitize=address
+CC_DEBUG_FLAGS = -gmodules -fsanitize=address
 #
 #********************DONT EDIT FROM HERE**********************************
 #MAKE MACRO VARIABLES FOR MAKEFILE WORKING
@@ -78,6 +78,7 @@ fclean : clean
 	@rm -rf $(INCLUDEDIR)
 	@rm -rf $(LIBDIR)
 	@rm -rf *.gch
+	@rm -rf *.dSYM
 
 re: fclean
 	@make all

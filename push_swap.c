@@ -6,7 +6,7 @@
 /*   By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 08:12:34 by lruiz-es          #+#    #+#             */
-/*   Updated: 2024/05/19 15:26:36 by lruiz-es         ###   ########.fr       */
+/*   Updated: 2024/05/20 09:18:26 by lruiz-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,15 @@
 #include "libft.h"
 #include "ft_printf.h"
 #include <stdlib.h>
-static int	errorprn(void)
+
+static int	errorprn(int error)
 {
-	ft_putendl_fd("Error", 2);
-	return (-1);
+	if (error)
+		ft_putendl_fd("Error", 2);
+	return (error);
 }
 
-static void	fillst(t_list *a, char **param, int counter, int nparam, int *error)
+static void	*fillst(char **param, int counter, int nparam, int *error)
 {
 	t_list	*nwnode;
 	int		num;
@@ -29,23 +31,23 @@ static void	fillst(t_list *a, char **param, int counter, int nparam, int *error)
 	num = ft_fatoi(param[counter - 1], error);
 	if (!*error)
 	{
-		a->value = num;
-		if (counter == nparam)
-			a->next = NULL;
-		else
+		nwnode = malloc(sizeof(t_list));
+		if (nwnode)
 		{
-			nwnode = malloc(sizeof(t_list));
-			if (nwnode)
-			{
-				a->next = nwnode;
-				fillst(nwnode, param, ++counter, nparam, error);
-			}
+			nwnode->value = num;
+			if (counter == nparam)
+				nwnode->next = NULL;
 			else
-				a->next = nwnode;
+				nwnode->next = fillst(param, ++counter, nparam, error);
+			if (*error)
+			{
+				free(nwnode);
+				nwnode = NULL;
+			}
 		}
+		return (nwnode);
 	}
-	else
-		a->next = NULL;
+	return (NULL);
 }
 
 static void	freestack(t_list *ptr)
@@ -61,7 +63,7 @@ static void	freestack(t_list *ptr)
 static void	prnresult(t_list *a, t_list *b, int *error)
 {
 	char	*cadena;
-	
+
 	cadena = doit(a, b, error);
 	if (cadena)
 	{
@@ -74,30 +76,26 @@ int	main(int nparam, char *param[])
 {
 	int		error;
 	int		counter;
-	t_list		*a;
-	t_list		*b;
+	t_list	*a;
+	t_list	*b;
 
 	if (nparam == 1)
 		return (0);
 	error = 0;
-	a = malloc(sizeof(t_list));
-	b = malloc(sizeof(t_list));
-	if ((a) && (b))
+	counter = 2;
+	a = fillst(param, counter, nparam, &error);
+	if ((!error) && (a))
 	{
-		b->next = NULL;
-		counter = 2;
-		fillst(a, param, counter, nparam, &error);
-		if (error)
-			{
-				freestack(a);
-				freestack(b);
-				return (errorprn());
-			}
-		prnresult(a, b, &error);
-		freestack(a);
-		freestack(b);
-		if (!error)
-			return (0);
+		b = malloc(sizeof(t_list));
+		if (b)
+		{
+			b->value = 0;
+			b->next = NULL;
+			prnresult(a, b, &error);
+			freestack(b);
+		}
 	}
-	return (errorprn());
+	if (a)
+		freestack(a);
+	return (errorprn(error));
 }
