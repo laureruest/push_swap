@@ -6,7 +6,7 @@
 /*   By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 08:12:34 by lruiz-es          #+#    #+#             */
-/*   Updated: 2024/05/20 09:18:26 by lruiz-es         ###   ########.fr       */
+/*   Updated: 2024/05/20 13:31:18 by lruiz-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,14 @@ static void	prnresult(t_list *a, t_list *b, int *error)
 {
 	char	*cadena;
 
-	cadena = doit(a, b, error);
+	cadena = doit(a, b);
 	if (cadena)
 	{
 		ft_printf("%s", cadena);
 		free(cadena);
+		return ;
 	}
+	*error = -1;
 }
 
 int	main(int nparam, char *param[])
