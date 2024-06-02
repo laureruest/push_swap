@@ -6,7 +6,7 @@
 /*   By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:22:50 by lruiz-es          #+#    #+#             */
-/*   Updated: 2024/05/20 10:28:51 by lruiz-es         ###   ########.fr       */
+/*   Updated: 2024/06/02 10:06:44 by lruiz-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,25 +51,19 @@ static long int	minvalue(void)
 static char	*shift_to_last(char *str)
 {
 	char	*ptrtoret;
-	int		bol;
 
 	ptrtoret = NULL;
-	bol = 1;
 	if (*str != '\0')
 	{
-		while (bol)
-		{
-			bol = 0;
-			bol = ((*str == ' ') || (*str == '\t') || (*str == '\r'));
-			bol += ((*str == '\n') || (*str == '\v') || (*str == '\f'));
-			str++;
-		}
-		str--;
+		ptrtoret = str;
 		if ((*str == '-') || (*str == '+'))
 			str++;
-		while (ft_isdigit(*str))
+		while ((*str != '\0') && (ptrtoret))
 		{
-			ptrtoret = str;
+			if (ft_isdigit(*str))
+				ptrtoret = str;
+			else
+				ptrtoret = NULL;
 			str++;
 		}
 	}

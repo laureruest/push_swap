@@ -6,7 +6,7 @@
 #    By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/04 09:12:32 by lruiz-es          #+#    #+#              #
-#    Updated: 2024/05/20 10:48:59 by lruiz-es         ###   ########.fr        #
+#    Updated: 2024/06/02 12:04:01 by lruiz-es         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = push_swap
 
 # SOURCE FILES
 # ******INSERT HERE IDENTIFICATION FOR SOURCE FILES***********************
-SRCFILES = push_swap.c doit.c
+SRCFILES = push_swap.c doit.c movements.c
 #
 #
 #*******INSERT HERE INNER LIBRARY DIRECTORIES TO COMPILE******************

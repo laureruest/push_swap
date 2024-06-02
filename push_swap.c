@@ -6,7 +6,7 @@
 /*   By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 08:12:34 by lruiz-es          #+#    #+#             */
-/*   Updated: 2024/05/20 13:31:18 by lruiz-es         ###   ########.fr       */
+/*   Updated: 2024/06/02 11:52:04 by lruiz-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,8 @@ int	main(int nparam, char *param[])
 	a = fillst(param, counter, nparam, &error);
 	if ((!error) && (a))
 	{
-		b = malloc(sizeof(t_list));
-		if (b)
-		{
-			b->value = 0;
-			b->next = NULL;
-			prnresult(a, b, &error);
-			freestack(b);
-		}
+		b = NULL;
+		prnresult(a, b, &error);
 	}
 	if (a)
 		freestack(a);
